@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const{cartCount}=useContext(ShopContext);
+  const Navigate=useNavigate();
   return (
     <nav className=" sticky top-0 z-50  bg-white">
       <div className="container mx-auto px-4 flex justify-between items-center h-16">
@@ -46,10 +47,11 @@ function Navbar() {
             alt="user"
           />
           <div className="group relative cursor-pointer">
-            <img
+            <img 
               src="./assets/images/user.png"
               className="w-10 hover:cursor-pointer p-2 "
               alt="user"
+              onClick={()=>{Navigate('/login')}}
             />
             <div className=" dropdown-content  group-hover:block hidden absolute right-0 bg-white shadow-lg rounded-lg">
               <p className=" w-28 p-3  text-center cursor-pointer hover:bg-slate-500 HOVER:text-white font-bold ">

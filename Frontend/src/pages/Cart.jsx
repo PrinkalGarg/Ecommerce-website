@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import {useNavigate} from "react-router-dom";
+import CartTotal from "../component/CartTotal";
 import { toast } from "react-toastify";
-
+import { useNavigate } from "react-router-dom";
 function Cart() {
   const [selectedProduct, setSelectedProduct] = useState([]);
-  const { products, cart, updatecart, cartvalue } = useContext(ShopContext);
-  const [totalcartvalue, setcartvalue] = useState(0);
-  const Navigate = useNavigate();
+  const { products, cart, cartvalue, updatecart } = useContext(ShopContext);
 
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const temp = [];
@@ -22,20 +21,18 @@ function Cart() {
       }
     }
     setSelectedProduct(temp);
-    setcartvalue(cartvalue);
   }, [cart]);
 
-  const handlePlaceOrder=()=>
-  {
-    if(totalcartvalue==0)
-    {
-       toast.error("Empty Cart");
+  const handlePlaceOrder = () => {
+    const totalcartvalu = cartvalue();
+
+    if (totalcartvalu === 0) {
+      toast.error("Empty Cart");
+    } else {
+      Navigate("/placeorder");
     }
-    else
-    {
-      Navigate("./PlaceOrder")
-    }
-  }
+  };
+
   return (
     <>
       <div className="max-w-4xl mx-auto p-4">
@@ -77,9 +74,10 @@ function Cart() {
                     );
                   }}
                 />
+                <div></div>
                 <button
                   onClick={() => updatecart(productdetails.id, sitems.size, 0)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  className="bg-red-500 text-white px-4 justify-center  py-2 rounded"
                 >
                   Remove
                 </button>
@@ -87,12 +85,9 @@ function Cart() {
             </div>
           );
         })}
-        {/* Total Cart Value */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-6 p-4 border-t">
-          <span className="text-xl font-bold mb-2 sm:mb-0">Total:</span>
-          <span className="text-2xl font-bold text-green-500">
-            ${totalcartvalue}
-          </span>
+
+        <CartTotal />
+        <div className="flex flex-auto justify-center">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded shadow"
             onClick={handlePlaceOrder}
