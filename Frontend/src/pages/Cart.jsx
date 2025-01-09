@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
+import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Cart() {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const { products, cart, updatecart, cartvalue } = useContext(ShopContext);
   const [totalcartvalue, setcartvalue] = useState(0);
+  const Navigate = useNavigate();
+
 
   useEffect(() => {
     const temp = [];
@@ -21,6 +25,17 @@ function Cart() {
     setcartvalue(cartvalue);
   }, [cart]);
 
+  const handlePlaceOrder=()=>
+  {
+    if(totalcartvalue==0)
+    {
+       toast.error("Empty Cart");
+    }
+    else
+    {
+      Navigate("./PlaceOrder")
+    }
+  }
   return (
     <>
       <div className="max-w-4xl mx-auto p-4">
@@ -78,6 +93,12 @@ function Cart() {
           <span className="text-2xl font-bold text-green-500">
             ${totalcartvalue}
           </span>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded shadow"
+            onClick={handlePlaceOrder}
+          >
+            Proceed to Checkout
+          </button>
         </div>
       </div>
     </>
