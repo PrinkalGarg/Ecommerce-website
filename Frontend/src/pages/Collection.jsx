@@ -39,83 +39,77 @@ function Collection() {
   }, [sortOrder]);
 
   return (
-    <div className="flex flex-col  md:flex-row">
-      <div >
+    <div className="flex flex-col md:flex-row">
+      <div className="w-full md:w-1/4 p-4">
         {/* Filter */}
-        <h1 className="p-2 font-semibold m-2 text-xl">FILTERS</h1>
-        <div className="border-2 w-52 m-4 h-fit p-6">
-          <h1>CATEGORIES</h1>
+        <h1 className="p-2 font-semibold text-xl">FILTERS</h1>
+        <div className="border-2 p-4">
+          <h2 className="font-semibold">CATEGORIES</h2>
           <div>
             <input
               type="checkbox"
-              className="p-6"
               id="men"
               value="men"
               onChange={(e) => handleFilterChange(e, "category")}
             />
-            <label className="p-3" htmlFor="men">Men</label><br/>
+            <label htmlFor="men" className="ml-2">Men</label><br />
             <input
               type="checkbox"
-              className="p-6"
               id="women"
               value="women"
               onChange={(e) => handleFilterChange(e, "category")}
             />
-            <label className="p-3" htmlFor="women">Women</label><br/>
+            <label htmlFor="women" className="ml-2">Women</label><br />
             <input
               type="checkbox"
-              className="p-6"
               id="kids"
               value="kids"
               onChange={(e) => handleFilterChange(e, "category")}
             />
-            <label className="p-3" htmlFor="kids">Kids</label><br/>
+            <label htmlFor="kids" className="ml-2">Kids</label><br />
           </div>
         </div>
-        <div className="border-2 w-52 m-4 h-fit p-6">
-          <h1 className="p-2 font-semibold">Type</h1>
+        <div className="border-2 p-4 mt-4">
+          <h2 className="font-semibold">TYPE</h2>
           <div>
             <input
               type="checkbox"
-              className="p-6"
               id="Topwear"
               value="topwear"
               onChange={(e) => handleFilterChange(e, "type")}
             />
-            <label className="p-3" htmlFor="Topwear">Topwear</label><br/>
+            <label htmlFor="Topwear" className="ml-2">Topwear</label><br />
             <input
               type="checkbox"
-              className="p-6"
               id="Bottomwear"
               value="bottomwear"
               onChange={(e) => handleFilterChange(e, "type")}
             />
-            <label className="p-3" htmlFor="Bottomwear">Bottomwear</label><br/>
+            <label htmlFor="Bottomwear" className="ml-2">Bottomwear</label><br />
             <input
               type="checkbox"
-              className="p-6"
               id="Winterwear"
               value="winterwear"
               onChange={(e) => handleFilterChange(e, "type")}
             />
-            <label className="p-3" htmlFor="Winterwear">Winterwear</label><br/>
+            <label htmlFor="Winterwear" className="ml-2">Winterwear</label><br />
           </div>
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full md:w-3/4 p-4">
         {/* Products */}
-        <div className="flex flex-row justify-around w-full text-center">
-          <h1 className="p-2 font-semibold m-2 text-xl">PRODUCTS</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="font-semibold text-xl">PRODUCTS</h1>
           <select
             name="sort"
-            className="border-2 w-fit h-10 p-2 m-2"
+            className="border-2 p-2"
             onChange={(e) => setSortOrder(e.target.value)}
           >
             <option value="Low to High">Sort By: Low to High</option>
             <option value="High to Low">Sort By: High to Low</option>
           </select>
         </div>
-        <div className="flex flex-wrap flex-row justify-center">
+        <div className="grid ml-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredProducts.map(product => (
             <Product key={product.id} id={product.id} name={product.name} price={product.price} />
           ))}
